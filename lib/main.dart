@@ -17,13 +17,13 @@ class MyHomePage extends StatelessWidget {
   final List<Transaction> transactions = [
     Transaction(
       id: "t1",
-      title: "new shoes",
+      title: "New shoes",
       amount: 100,
       date: DateTime.now(),
     ),
     Transaction(
       id: "t2",
-      title: "weekly Grociers",
+      title: "Weekly Grociers",
       amount: 69.99,
       date: DateTime.now(),
     ),
@@ -43,10 +43,52 @@ class MyHomePage extends StatelessWidget {
               color: Colors.blue,
             ),
           ),
-          Card(
-            child: Text("List of TX"),
-            color: Colors.red,
-          )
+          Column(
+              children: transactions.map((tx) {
+            return Card(
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.purple,
+                        width: 2,
+                      ),
+                    ),
+                    child: Text(
+                      tx.amount.toString(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        tx.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        tx.date.year.toString() +
+                            "/" +
+                            tx.date.month.toString() +
+                            "/" +
+                            tx.date.day.toString(),
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ],
+              ),
+            );
+          }).toList())
         ],
       ),
     );
