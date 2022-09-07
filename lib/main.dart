@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './Transaction.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,25 +44,50 @@ class MyHomePage extends StatelessWidget {
               color: Colors.blue,
             ),
           ),
+          Card(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: "Title",
+                      ),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: "Amount",
+                      ),
+                    ),
+                    OutlinedButton(
+                      onPressed: (() => print("h")),
+                      child: Text("Add Transaction"),
+                      style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.purple),
+                    )
+                  ],
+                ),
+              ),
+              elevation: 5),
           Column(
               children: transactions.map((tx) {
             return Card(
               child: Row(
                 children: [
                   Container(
+                    //amount container
+                    child: Text("\$${tx.amount}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple,
+                        )),
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.purple,
                         width: 2,
-                      ),
-                    ),
-                    child: Text(
-                      tx.amount.toString(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.purple,
                       ),
                     ),
                   ),
@@ -75,11 +101,8 @@ class MyHomePage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        tx.date.year.toString() +
-                            "/" +
-                            tx.date.month.toString() +
-                            "/" +
-                            tx.date.day.toString(),
+                        DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
+                            .format(tx.date),
                         style: TextStyle(color: Colors.grey),
                       ),
                     ],
