@@ -1,53 +1,58 @@
 import 'package:flutter/material.dart';
 
 class NewTransaction extends StatelessWidget {
+  final Function addTx;
   final titleController = TextEditingController();
   final amountController = TextEditingController();
-  final Function addTx;
+
   NewTransaction(this.addTx);
 
   void submitData() {
-    String enteredTitle = titleController.text;
-    double enteredAmount = double.parse(amountController.text);
+    final enteredTitle = titleController.text;
+    final enteredAmount = double.parse(amountController.text);
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0) return;
+    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+      return;
+    }
 
-    addTx(enteredTitle, enteredAmount);
+    addTx(
+      enteredTitle,
+      enteredAmount,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: "Title",
-                ),
-                // onChanged: (value) => title = value,
-                onSubmitted: (_) => submitData(),
-                controller: titleController,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: "Amount",
-                ),
-                keyboardType: TextInputType.number,
-                onSubmitted: (_) => submitData(),
-                // onChanged: (value) => amount = value,
-                controller: amountController,
-              ),
-              OutlinedButton(
-                onPressed: submitData,
-                child: Text("Add Transaction"),
-                style: OutlinedButton.styleFrom(foregroundColor: Colors.purple),
-              )
-            ],
-          ),
+      elevation: 5,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(labelText: 'Title'),
+              controller: titleController,
+              onSubmitted: (_) => submitData(),
+              // onChanged: (val) {
+              //   titleInput = val;
+              // },
+            ),
+            TextField(
+              decoration: InputDecoration(labelText: 'Amount'),
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => submitData(),
+              // onChanged: (val) => amountInput = val,
+            ),
+            OutlinedButton(
+              child: Text('Add Transaction'),
+              style: OutlinedButton.styleFrom(primary: Colors.purple),
+              onPressed: submitData,
+            ),
+          ],
         ),
-        elevation: 5);
+      ),
+    );
   }
 }
