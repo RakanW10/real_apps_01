@@ -55,7 +55,8 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             OutlinedButton(
               child: Text('Add Transaction'),
-              style: OutlinedButton.styleFrom(foregroundColor: Colors.purple),
+              style: OutlinedButton.styleFrom(
+                  foregroundColor: Theme.of(context).primaryColorDark),
               onPressed: submitData,
             ),
           ],
